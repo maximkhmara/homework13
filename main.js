@@ -1,30 +1,26 @@
-const slides = document.querySelectorAll('.slider-item');
-const prev = document.querySelector('.slider-prev');
-const next = document.querySelector('.slider-next');
-let index = 0;
+document.addEventListener('DOMContentLoaded', function () {
+	const loginEmail = document.querySelector('.login-email');
+	const loginPass = document.querySelector('.login-pass');
+	const loginBtn = document.querySelector('.login-btn');
+	const loader = document.querySelector('.loader');
 
-function showSlide(slideIndex) {
-    slides.forEach(slide => {
-        slide.classList.remove('show');
-    });
-    slides[slideIndex].classList.add('show');
-}
-showSlide(index);
+	function activateBtn() {
+		if (loginEmail.value && loginPass.value) {
+			loginBtn.classList.remove('disable');
+		} else {
+			loginBtn.classList.add('disable');
+		}
+	}
 
-next.addEventListener('click', function () {
-    if (index < slides.length - 1) {
-        index++;
-        showSlide(index);
-    }
-    prev.classList.toggle('disable', index === 0);
-    next.classList.toggle('disable', index === slides.length - 1);
-});
+	loginEmail.addEventListener('input', activateBtn);
+	loginPass.addEventListener('input', activateBtn);
 
-prev.addEventListener('click', function () {
-    if (index > 0) {
-        index--;
-        showSlide(index);
-    }
-    prev.classList.toggle('disable', index === 0);
-    next.classList.toggle('disable', index === slides.length - 1);
+	loginBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+		loader.classList.add('show');
+		console.log(loginEmail.value, loginPass.value);
+		setTimeout(function () {
+			location.href = 'profile.html';
+		}, 2000);
+	});
 });
